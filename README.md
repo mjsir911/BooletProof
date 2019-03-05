@@ -3,8 +3,8 @@
 A boolean algebra proof assistant
 
 
-This library will allow one to run pre-defined identities on an s-expression,
-allowing for zero-mistake proofs.
+This library extinguishes errors in proofs by allowing you to run pre-defined
+identities on an s-expression proof.
 
 ## How to use
 
