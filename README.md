@@ -1,5 +1,5 @@
 # BooletProof Assistant
-=======================
+-----------------------
 A boolean algebra proof assistant
 
 
