@@ -1,19 +1,5 @@
-(define (partial-equal? a b)
-	(if (or (equal? a '_) (equal? b '_) (equal? a b))
-		#t
-		(if (or (not (and (list? a) (list? b))) (null? a) (null? b))
-			#f
-			(and (partial-equal? (car a) (car b)) (partial-equal? (cdr a) (cdr b))))))
-
-(define (member item l #!optional (comparison =))
-	(if (null? l)
-		#f
-		(if (comparison item (car l))
-			#t
-				(member item (cdr l) comparison))))
-
 (define (recursive-replace from to expr)
-	(if (partial-equal? expr from)
+	(if (equal? expr from)
 		to
 		(if (or (not (list? expr)) (null? expr))
 			expr
@@ -28,13 +14,13 @@
 (define (recursive-replace-which froms tos expr)
 	(if (or (null? froms) (null? tos))
 		expr
-		(if (partial-equal? (car froms) expr)
+		(if (equal? (car froms) expr)
 			(car tos)
 			(recursive-replace-which (cdr froms) (cdr tos) expr))))
 
 
 (define (recursive-replace-many froms tos expr)
-	(if (member expr froms partial-equal?)
+	(if (member expr froms)
 		(recursive-replace-which froms tos expr)
 		(if (or (null? expr) (not (list? expr)))
 			expr
@@ -42,14 +28,10 @@
 
 
 (define (identity-helper args equality expr #!optional (backwards #f))
+	(pretty-print equality)
 	(let* ((equality (cdr (recursive-replace-many (car args) (cadr args) equality)))
 	       (args '())
 	       (equality (if backwards (reverse equality) equality)))
-		; (pretty-print "---")
-		; (pretty-print (car equality))
-		; (pretty-print "===")
-		; (pretty-print (cadr equality))
-		; (pretty-print "---")
 		(recursive-replace (car equality) (cadr equality) expr)))
 
 (define-syntax identity

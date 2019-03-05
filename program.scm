@@ -94,7 +94,7 @@
 ; (step (associative/∨
 ; 	'(∧ (¬ w) (∧ (¬ z) y))
 ; 	'_
-; 	'_
+; 	'_))
 
 
 (pretty-print expr)
