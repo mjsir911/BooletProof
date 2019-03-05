@@ -28,7 +28,6 @@
 
 
 (define (identity-helper args equality expr #!optional (backwards #f))
-	(pretty-print equality)
 	(let* ((equality (cdr (recursive-replace-many (car args) (cadr args) equality)))
 	       (args '())
 	       (equality (if backwards (reverse equality) equality)))
