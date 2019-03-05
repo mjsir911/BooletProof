@@ -46,10 +46,15 @@
 				(assert (equal? (car (proof (cadr 'equality))) (caddr 'equality))) ; WHY CAR?!
 				(identity (signature args ...) equality)))))
 
+(load "latex")
+
 (define-syntax step
 	(syntax-rules (reversed)
 		((step (func args ...))
-		 (define expr (func args ... expr #f)))
+		 (begin
+			(define expr (func args ... expr #f))
+			(latex-print expr (symbol->string 'func))))
 		((step reversed (func args ...))
-		 (define expr (func args ... expr #t)))))
-
+		 (begin 
+			(define expr (func args ... expr #t))
+			(latex-print expr (symbol->string 'func))))))
